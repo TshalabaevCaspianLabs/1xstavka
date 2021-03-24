@@ -1,0 +1,1 @@
+from .GetCode import getLastCode, getNewCode
