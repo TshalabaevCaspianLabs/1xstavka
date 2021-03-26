@@ -1,1 +1,1 @@
-from .config import auth_info, scores_total_low
+from .config import auth_info

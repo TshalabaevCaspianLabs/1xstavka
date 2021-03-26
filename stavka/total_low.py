@@ -3,7 +3,7 @@ import time
 from loguru import logger
 
 
-def place_bet(driver, urls):
+def place_bet(driver, urls, sum_price):
     for url in urls:
         try:
             number_1 = url.split('https://1xstavka.ru/en/live/Tennis/')[1].split('/')[0]
@@ -24,7 +24,6 @@ def place_bet(driver, urls):
                         for span in span_list:
                             if span.text == 'Total Under 10.5' or span.text == 'Under 10.5':
                                 try:
-                                    time.sleep(1)
                                     driver.find_element_by_xpath('//*[@id="sports_right"]/div/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/div/div[1]/button').click()
                                 except:
                                     pass
@@ -34,22 +33,13 @@ def place_bet(driver, urls):
                                 break
                 except:
                     pass
-
+            time.sleep(1)
             price = driver.find_element_by_xpath(
                 '//*[@id="sports_right"]/div/div[2]/div/div[2]/div[1]/div/div[3]/div[2]/div[1]/div/div[3]/div/input')
-            price.send_keys('100')
-            time.sleep(1)
+            price.send_keys(f'{sum_price}')
+            time.sleep(2)
             driver.find_element_by_xpath(
                 '//*[@id="sports_right"]/div/div[2]/div/div[2]/div[1]/div/div[3]/div[3]/div/div/div/button').click()
-            time.sleep(3)
-            try:
-                driver.find_element_by_xpath('/html/body/div[6]/div/div[3]/button[1]').click()
-                time.sleep(5)
-                driver.find_element_by_xpath(
-                    '//*[@id="sports_right"]/div/div[2]/div/div[2]/div[1]/div/div[3]/div[3]/div/div/div/button').click()
-            except:
-                pass
-
             time.sleep(5)
             logger.debug('--[Accept Bet]--')
         except:

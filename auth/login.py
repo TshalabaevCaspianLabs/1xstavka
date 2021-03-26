@@ -7,7 +7,7 @@ from onlinesim import getLastCode, getNewCode
 from liveAnalise.get_link_for_math import get_link_math
 from stavka.total_low import place_bet
 
-def logInSite():
+def logInSite(sum):
     try:
         log.debug('-- Start Login on site --')
 
@@ -34,11 +34,11 @@ def logInSite():
             log.info(f"Last-Code -- [{last_code}]")
             time.sleep(3)
             phone = driver.find_element_by_xpath('//*[@id="phone_middle"]')
-            phone.send_keys('97763385')
+            phone.send_keys('90632831')
             time.sleep(3)
             driver.find_element_by_xpath('//*[@id="app"]/div/div[2]/div[2]/form/button').click()
-            time.sleep(2)
-            driver.find_element_by_xpath('/html/body/div[4]/div/div[3]/button[1]').click()
+            driver.refresh()
+            time.sleep(3)
             new_code = getNewCode(last_code)
             code = driver.find_element_by_xpath('//*[@id="input_otp"]')
             code.send_keys(new_code)
@@ -46,7 +46,7 @@ def logInSite():
             driver.find_element_by_xpath('//*[@id="app"]/div/div[2]/div[2]/form/button').click()
             time.sleep(3)
             log.debug('Autorization [-OK]')
-        except:
+        except Exception as e:
             pass
 
 
@@ -58,7 +58,7 @@ def logInSite():
             log.info(f"-- Count Math -> {len(link)} --")
             if len(link) == 0:
                 link = get_link_math(driver)
-            place_bet(driver, link)
+            place_bet(driver, link, sum)
 
             time.sleep(30)
 
