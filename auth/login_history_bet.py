@@ -4,11 +4,10 @@ from data.config import auth_info
 from loader import driver
 from loguru import logger as log
 from onlinesim import getLastCode, getNewCode
-from liveAnalise.get_link_for_math import get_link_math
-from stavka.Under_Ten import place_bet
-import os
+from liveAnalise.bet_analitics import get_analitics
 
-def logInSite(koef, place):
+
+def logInSite_():
     try:
         log.debug('-- Start Login on site --')
 
@@ -50,26 +49,12 @@ def logInSite(koef, place):
         except Exception as e:
             pass
 
-        # Что бы выставить быструю ставку на сумму что нужна, програмно сделать трудно так как программа
-        # не видит окошко с быстрой ставкой
-        log.debug('-- Login on site [OK] --')
-        log.debug('Start sleep programm, for place last a bet on site')
-        time.sleep(10)
-        log.debug('Last bet accepted')
+        log.debug('Autorization - [OK]')
+        time.sleep(5)
 
-        # Сам цикл работы программы, бесконечный
-        while True:
-            data = get_link_math(driver)
-            log.info(f"-- Count Math -> {len(data[0])} --")
-            if len(data[0]) == 0:
-                data = get_link_math(driver)
-            place_bet(driver, data[0], data[1], koef, place)
+        get_analitics(driver)
 
-            time.sleep(30)
-
-    # Обработчик ошибки, на случай если программа не смогла авторизоваться сама
     except Exception as e:
         log.error(e)
         log.debug('-- Login on site [NOT OK] --')
-        log.debug('-- Restart a the programm --')
-        logInSite()
+

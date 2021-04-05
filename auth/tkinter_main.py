@@ -10,7 +10,7 @@ def tkinter_gui():
     sum = StringVar()
 
     sum_entry = Entry(textvariable=sum)
-    name_title = Label(text="Введите сумму ставки: =>")
+    name_title = Label(text="Выберите ставку =>")
     name_title.grid(row=0, column=0, sticky="w")
     sum_entry.grid(row=0,column=1, padx=5, pady=5)
 
