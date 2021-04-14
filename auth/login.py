@@ -1,15 +1,22 @@
 import time
 
-from data.config import auth_info
-from loader import driver
 from loguru import logger as log
-from onlinesim import getLastCode, getNewCode
-from liveAnalise.get_link_for_math import get_link_math
-from stavka.Under_Ten import place_bet
-import os
 
-def logInSite(koef, place):
+from data.config import auth_info
+from liveAnalise.get_link_for_math import get_link_math
+from loader import driver
+from onlinesim import getLastCode, getNewCode
+from stavka.Under_Ten import place_bet
+
+
+def logInSite(data_auth):
     try:
+        try:
+            file = open('analytics_file.txt', 'w')
+            file.close()
+        except:
+            pass
+
         log.debug('-- Start Login on site --')
 
         # заходим на страницу
@@ -17,16 +24,16 @@ def logInSite(koef, place):
         time.sleep(2)
 
         # нажимаем на кнопку "Войти"
-        login = driver.find_element_by_xpath('//*[@id="loginout"]/div/div/div/div[1]')
+        login_ = driver.find_element_by_xpath('//*[@id="loginout"]/div/div/div/div[1]')
         time.sleep(2)
-        login.click()
+        login_.click()
 
         username = driver.find_element_by_xpath('//*[@id="auth_id_email"]')
         password = driver.find_element_by_xpath('//*[@id="auth-form-password"]')
         btn = driver.find_element_by_xpath('//*[@id="loginout"]/div/div/div/div[2]/div/form/button')
 
-        username.send_keys(auth_info[0])
-        password.send_keys(auth_info[1])
+        username.send_keys(data_auth[0])
+        password.send_keys(data_auth[1])
         time.sleep(2)
         btn.click()
 
@@ -63,7 +70,7 @@ def logInSite(koef, place):
             log.info(f"-- Count Math -> {len(data[0])} --")
             if len(data[0]) == 0:
                 data = get_link_math(driver)
-            place_bet(driver, data[0], data[1], koef, place)
+            place_bet(driver, data[0], data[1], data[2], data[3])
 
             time.sleep(30)
 

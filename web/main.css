@@ -1,0 +1,94 @@
+* {
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+body {
+    background: #FF5F6D;
+    background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);
+    background: linear-gradient(to right, #FFC371, #FF5F6D);
+    color: white;
+    padding: 40px;
+}
+
+#name {
+    display: inline;
+    font-family: "Lobster";
+}
+
+
+#koef {
+    display: block;
+    border: None;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.info {
+    display: flex;
+}
+
+#login {
+    display: block;
+    border: None;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#password {
+    display: block;
+    border: None;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#drop {
+    display: block;
+    border: None;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#start {
+    display: block;
+    border: None;
+    background: #16BFFD;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    outline: none;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#start:hover {
+    opacity: .9;
+}

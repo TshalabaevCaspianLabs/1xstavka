@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jenny - помощник по LIVE ставкам</title>
+    <script src="eel.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="main.css">
+
+
+</head>
+<body>
+<h1 id="name">Jenny</h1>
+
+<input id="login" type="text" placeholder="Введите логин ..." , required="">
+<input id="password" type="text" placeholder="Введите пароль ..." , required="">
+
+<div class="info">
+    <input id="koef" type="text" placeholder="Введите коэффициент для ставки ..." , required="">
+    <select id="drop">
+        <option value="Under 10.5">Under 10.5</option>
+        <option value="Under 9.5">Under 9.5</option>
+    </select>
+</div>
+
+<buttun id="start">Начать</buttun>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    async function start_bet() {
+        let login = document.getElementById('login').value;
+        let password = document.getElementById('password').value;
+        let koef = document.getElementById('koef').value;
+        let bet = document.getElementById('drop').value;
+
+
+        //  Вызываем функцию питон
+        let rec = await eel.start_programm(login, password, koef, bet)();
+        console.log(rec)
+    }
+
+    jQuery('#start').on('click', function(){
+        start_bet();
+    });
+
+</script>
+
+</body>
+</html>

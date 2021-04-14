@@ -1,8 +1,32 @@
-from selenium import webdriver
 from time import sleep
-from openpyxl import load_workbook
-import xlrd, xlwt
 
+import xlwt
+
+
+# делаем файл в формате xls
+def get_xls():
+    wb = xlwt.Workbook()
+    ws = wb.add_sheet('Test')
+
+    with open('analis.txt', 'r') as file:
+        try:
+            n = 0
+            for info in file:
+                m = []
+                info = info.strip()
+                time, name, bet, status = info.split(' | ')
+                m.append([time, name, bet, status])
+                for i in range(4):
+                    ws.write(n, i, m[0][i])
+                n += 1
+
+        except Exception as e:
+            print(e)
+
+    wb.save('analise.xls')
+
+
+# по имени достаем счет ставки
 def chek_bet(name):
     analise = []
     with open('/Users/macbookpro/Documents/1xstavka/analytics_file.txt', 'r') as file:
@@ -17,7 +41,7 @@ def chek_bet(name):
             return bet_[1]
 
 
-
+# основа
 def get_analitics(driver):
     driver.get('https://1xstavka.ru/en/office/history/')
     sleep(3)
@@ -37,10 +61,8 @@ def get_analitics(driver):
             if p.get_attribute('class') == 'apm-panel-head__text':
                 data.append(p.text)
 
-
         print(data[2])
         fulldata.append(data)
-
 
     with open('analise_history_bet.txt', 'w') as filename:
         for info in fulldata:
@@ -51,11 +73,9 @@ def get_analitics(driver):
 
         filename.close()
 
-
     history_bet = []
     analise = []
     game = []
-
 
     with open('/Users/macbookpro/Documents/1xstavka/analise_history_bet.txt', 'r') as filename:
         for bet in filename:
@@ -74,22 +94,13 @@ def get_analitics(driver):
     for info in analise:
         game.append(info[0])
 
-    w = load_workbook('Analise.xlsx', use_iterators=True)
-    sheet = w.worksheets[0]
-
-    wb = xlwt.Workbook()
-    ws = wb.add_sheet('Test')
-
     with open('analis.txt', 'w') as file_analise:
         for hbet in history_bet:
             if hbet[2] in game:
                 bet_ = chek_bet(hbet[2])
                 file_analise.write(f'{hbet[1]} | {hbet[2]} | {bet_} | {hbet[3]}' + '\n')
 
-                for i in range(3):
-                    row_count = sheet.max_row
-                    ws.write(row_count+1, )
-
-
-
         file_analise.close()
+
+    get_xls()
+    driver.quit()

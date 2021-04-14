@@ -1,14 +1,22 @@
 import time
 
-from data.config import auth_info
-from loader import driver
 from loguru import logger as log
-from onlinesim import getLastCode, getNewCode
+
+from data.config import auth_info
 from liveAnalise.bet_analitics import get_analitics
+from loader import driver
+from onlinesim import getLastCode, getNewCode
 
 
 def logInSite_():
     try:
+
+        try:
+            file = open('analise_history_bet.txt', 'w')
+            file.close()
+        except:
+            pass
+
         log.debug('-- Start Login on site --')
 
         # заходим на страницу
@@ -57,4 +65,3 @@ def logInSite_():
     except Exception as e:
         log.error(e)
         log.debug('-- Login on site [NOT OK] --')
-
